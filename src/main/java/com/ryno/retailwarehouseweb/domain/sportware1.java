@@ -20,7 +20,7 @@ import javax.persistence.OneToMany;
  */
 @Entity
 @SuppressWarnings("ConsistentAccessType")
-public class sportware implements Serializable{
+public class sportware1 implements Serializable{
      private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -30,7 +30,7 @@ public class sportware implements Serializable{
     private String brand;
     @OneToMany (cascade = CascadeType.ALL)
     //@JoinColumn (name="")
-    List<sportware> sportswareList;
+        List<sportware1> sportswareList;
     
     
     public String Types(){
@@ -51,18 +51,18 @@ public class sportware implements Serializable{
     
    
     
-    private sportware(Builder build){
+    private sportware1(Builder build){
         barcode=build.barcode;
     }
     
-    private sportware(sportware item){
+    private sportware1(sportware1 item){
         this.barcode = item.barcode;
         this.brand = item.brand;
         this.descrip = item.descrip;
     }
      
     
-        public List<sportware> getSportswareList()
+        public List<sportware1> getSportswareList()
         {
             return sportswareList;
         }
@@ -72,7 +72,7 @@ public class sportware implements Serializable{
         private String descrip;
         private String brand;    
       private long id;
-         List<sportware> sportswareList;
+         List<sportware1> sportswareList;
         
         public Builder(String bcode){
             this.barcode=bcode;
@@ -88,12 +88,12 @@ public class sportware implements Serializable{
             return this;
         }
         
-        public Builder setSportswareList (List<sportware> sportswareList){
+        public Builder setSportswareList (List<sportware1> sportswareList){
             this.sportswareList = sportswareList;
             return this;
         }
         
-        public Builder sportware(sportware wares){
+        public Builder sportware(sportware1 wares){
             this.barcode = wares.barcode;
             this.brand = wares.brand;
             this.descrip = wares.descrip;
@@ -101,8 +101,8 @@ public class sportware implements Serializable{
             return this;
         }
         
-        public sportware Build(){
-            return new sportware(this);
+        public sportware1 Build(){
+            return new sportware1(this);
         }
         
         
@@ -120,7 +120,7 @@ public class sportware implements Serializable{
         if(getClass()!= obj.getClass()){
             return false;
         }
-        final sportware otherWare = (sportware) obj;
+        final sportware1 otherWare = (sportware1) obj;
         if(!Objects.equals(this.id,otherWare.id)){
             return false;
         }

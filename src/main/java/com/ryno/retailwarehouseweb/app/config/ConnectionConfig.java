@@ -9,6 +9,7 @@ package com.ryno.retailwarehouseweb.app.config;
 import javax.sql.DataSource;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -23,6 +24,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * @author Ryno
  */
 @Configuration
+@ComponentScan ("com.ryno.retailwarehouseweb")
 @EnableTransactionManagement
 @EnableJpaRepositories (basePackages = "com.ryno.retailwarehouseweb.repository")
 public class ConnectionConfig{
