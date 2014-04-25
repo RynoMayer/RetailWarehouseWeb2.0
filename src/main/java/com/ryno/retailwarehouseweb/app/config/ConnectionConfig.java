@@ -9,7 +9,6 @@ package com.ryno.retailwarehouseweb.app.config;
 import javax.sql.DataSource;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -24,7 +23,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * @author Ryno
  */
 @Configuration
-@ComponentScan ("com.ryno.retailwarehouseweb")
+//@ComponentScan ("com.ryno.retailwarehouseweb")
 @EnableTransactionManagement
 @EnableJpaRepositories (basePackages = "com.ryno.retailwarehouseweb.repository")
 public class ConnectionConfig{
@@ -40,14 +39,13 @@ public class ConnectionConfig{
     }
     
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory
-        (DataSource dataSource, JpaVendorAdapter jpaVendorAdapter){
-                LocalContainerEntityManagerFactoryBean lefb = 
-                new LocalContainerEntityManagerFactoryBean();    
-                lefb.setDataSource(dataSource);
-                lefb.setJpaVendorAdapter(jpaVendorAdapter);
-                lefb.setPackagesToScan("com.ryno.retailwarehouseweb.domain");
-                return lefb;
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory(
+            DataSource dataSource, JpaVendorAdapter jpaVendorAdapter) {
+        LocalContainerEntityManagerFactoryBean lef = new LocalContainerEntityManagerFactoryBean();
+        lef.setDataSource(dataSource);
+        lef.setJpaVendorAdapter(jpaVendorAdapter);
+        lef.setPackagesToScan("com.ryno.retailwarehouseweb.domain");
+        return lef;
     }
         
     @Bean

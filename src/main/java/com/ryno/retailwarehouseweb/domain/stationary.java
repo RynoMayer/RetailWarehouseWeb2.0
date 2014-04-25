@@ -3,22 +3,35 @@
  * and open the template in the editor.
  */
 package com.ryno.retailwarehouseweb.domain;
-
+import java.io.Serializable;
+import java.util.Objects;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 /**
  *
  * @author ryno
  */
-public class stationary implements IProduct{
+@Entity
+public class stationary implements Serializable{
+    private static final Long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     private String barcode;
     private String descrip;
     private String brand;
     
-    private stationary(){}
+    private stationary(){};
     
     public String Types(){
         return "stationary";
     }
     
+    public Long getId(){
+        return id;
+    }
     public String getBarcode(){
         return barcode;
     }
@@ -30,14 +43,25 @@ public class stationary implements IProduct{
     }
     
     private stationary(Builder build){
-        barcode=build.barcode;
+        this.barcode=build.barcode;
+        this.brand=build.brand;
+        this.descrip=build.descrip;
+        this.id=build.id;
+    }
+    
+    private stationary (stationary item){
+        this.barcode=item.barcode;
+        this.brand=item.brand;
+        this.descrip=item.descrip;
+        this.id=item.id;
     }
     
     public static class Builder{
         private String barcode;
         private String descrip;
         private String brand;    
-    
+        private Long id;
+        
         public Builder(String bcode){
             this.barcode=bcode;
         }
@@ -52,17 +76,27 @@ public class stationary implements IProduct{
             return this;
         }
         
+        public Builder stationary (stationary item){
+        this.barcode=item.barcode;
+        this.brand=item.brand;
+        this.descrip=item.descrip;
+        this.id=item.id;
+        return this;
+    }
         public stationary Build(){
             return new stationary(this);
         }
     }
 
     @Override
+    public String toString() {
+        return "stationary{" + "id=" + id + '}';
+    }
+
+    @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 29 * hash + (this.barcode != null ? this.barcode.hashCode() : 0);
-        hash = 29 * hash + (this.descrip != null ? this.descrip.hashCode() : 0);
-        hash = 29 * hash + (this.brand != null ? this.brand.hashCode() : 0);
+        int hash = 7;
+        hash = 53 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -75,16 +109,13 @@ public class stationary implements IProduct{
             return false;
         }
         final stationary other = (stationary) obj;
-        if ((this.barcode == null) ? (other.barcode != null) : !this.barcode.equals(other.barcode)) {
-            return false;
-        }
-        if ((this.descrip == null) ? (other.descrip != null) : !this.descrip.equals(other.descrip)) {
-            return false;
-        }
-        if ((this.brand == null) ? (other.brand != null) : !this.brand.equals(other.brand)) {
+        if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         return true;
     }
+    
+    
+    
     
 }

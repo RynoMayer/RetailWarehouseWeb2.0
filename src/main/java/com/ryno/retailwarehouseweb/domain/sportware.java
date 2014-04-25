@@ -4,33 +4,33 @@
  */
 package com.ryno.retailwarehouseweb.domain;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 /**
  *
  * @author ryno
  */
+
+//@SuppressWarnings("ConsistentAccessType")
 @Entity
-@SuppressWarnings("ConsistentAccessType")
 public class sportware implements Serializable{
-     private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-    private final String barcode;
+    private Long id;
+    private String barcode;
     private String descrip;
     private String brand;
-    @OneToMany (cascade = CascadeType.ALL)
-    //@JoinColumn (name="")
-    List<sportware> sportswareList;
+    //@OneToMany (cascade = CascadeType.ALL)
+    //@JoinColumn (name="sportware_id")
+    //List<sportware> sportswareList;
+
+    public Long getId() {
+        return id;
+    }
     
     
     public String Types(){
@@ -48,31 +48,35 @@ public class sportware implements Serializable{
     }
     
     
-    
+    private sportware(){};
    
     
     private sportware(Builder build){
-        barcode=build.barcode;
+        this.barcode=build.barcode;
+        this.brand = build.brand;
+        this.descrip = build.descrip;
+        this.id = build.id;
     }
     
     private sportware(sportware item){
         this.barcode = item.barcode;
         this.brand = item.brand;
         this.descrip = item.descrip;
+        this.id = item.id;
     }
      
     
-        public List<sportware> getSportswareList()
+       /* public List<sportware> getSportswareList()
         {
             return sportswareList;
-        }
+        }*/
     
     public static class Builder{
         private String barcode;
         private String descrip;
         private String brand;    
-      private long id;
-         List<sportware> sportswareList;
+        private Long id;
+        //List<sportware> sportswareList;
         
         public Builder(String bcode){
             this.barcode=bcode;
@@ -88,16 +92,16 @@ public class sportware implements Serializable{
             return this;
         }
         
-        public Builder setSportswareList (List<sportware> sportswareList){
+        /*public Builder setSportswareList (List<sportware> sportswareList){
             this.sportswareList = sportswareList;
             return this;
-        }
+        }*/
         
         public Builder sportware(sportware wares){
             this.barcode = wares.barcode;
             this.brand = wares.brand;
             this.descrip = wares.descrip;
-         this.id=wares.id;
+            this.id=wares.id;
             return this;
         }
         
@@ -135,14 +139,13 @@ public class sportware implements Serializable{
         return hash; //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Id
-    public Long getId() {
+    /*public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
+    }*/
     
     
 }

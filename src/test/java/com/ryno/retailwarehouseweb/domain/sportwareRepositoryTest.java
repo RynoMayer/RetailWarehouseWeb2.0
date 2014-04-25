@@ -26,15 +26,16 @@ import org.testng.annotations.Test;
  */
 public class sportwareRepositoryTest {
     
-    private static Long id;
-    public static ApplicationContext ctx;
+    private static long id;
+    private static ApplicationContext ctx;
     
     private static sportwareRepository repo;
     
     public sportwareRepositoryTest() {
     }
-@Test
-    public static void createSportware(){
+    
+        @Test
+        public static void createSportware(){
         repo = ctx.getBean(sportwareRepository.class);
         
         List <sportware> sportswareList = new ArrayList<sportware>();
@@ -48,7 +49,7 @@ public class sportwareRepositoryTest {
         sportware sport = new sportware.Builder("Ttmtek403")
                 .setBrand("nike")
                 .setDescrip("shirt")
-                .setSportswareList(sportswareList)
+                //.setSportswareList(sportswareList)
                 .Build();
         
         repo.save(sport);
@@ -78,7 +79,7 @@ public class sportwareRepositoryTest {
         repo.save(sportUpdate);
     }
     
-    @Test(dependsOnMethods = "updateSportware")
+    @Test(dependsOnMethods = "readSportware")
     private void deleteSportware(){
         repo = ctx.getBean(sportwareRepository.class);
         repo.delete(id);
