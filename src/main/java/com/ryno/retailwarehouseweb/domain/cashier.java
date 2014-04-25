@@ -44,12 +44,18 @@ public class cashier implements Serializable{
         this.employeeNum=build.employeeNum;
         this.id=build.id;
     }
-    
+    private cashier(cashier build){
+        this.name=build.name;
+        this.salary=build.salary;
+        this.employeeNum=build.employeeNum;
+        this.id=build.id;
+    }
     public static class Builder{
         private String name;
         private double salary;
         private String employeeNum;
         private Long id;
+        
         public Builder(String name, String empN, double sal){
             this.name=name;
             this.employeeNum=empN;
@@ -61,7 +67,7 @@ public class cashier implements Serializable{
             return this;
         }
         
-        public Builder cashier(Builder build){
+        public Builder cashier(cashier build){
         this.name=build.name;
         this.salary=build.salary;
         this.employeeNum=build.employeeNum;
@@ -73,4 +79,32 @@ public class cashier implements Serializable{
             return new cashier(this);
         }
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 37 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final cashier other = (cashier) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "cashier{" + "id=" + id + '}';
+    }
+    
 }

@@ -7,6 +7,7 @@
 package com.ryno.retailwarehouseweb.domain;
 
 import com.ryno.retailwarehouseweb.app.config.ConnectionConfig;
+import com.ryno.retailwarehouseweb.repository.cashierRepository;
 import com.ryno.retailwarehouseweb.repository.hardwareRepository;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -19,58 +20,60 @@ import org.testng.annotations.Test;
 
 /**
  *
- * @author Ryno
+ * @author ryno
  */
-public class hardwareRepositoryTest {
-    
+public class cashierRepoTest {
     private static ApplicationContext ctx;
     private static Long id;
-    private static hardwareRepository repo;
-    
-    public hardwareRepositoryTest() {
+    private static cashierRepository repo;
+    public cashierRepoTest() {
     }
-    
-        @Test
-        public static void createHardware(){
-        repo = ctx.getBean(hardwareRepository.class);
+
+    // TODO add test methods here.
+    // The methods must be annotated with annotation @Test. For example:
+    //
+    // @Test
+    // public void hello() {}
+
+    @Test
+        public static void createCashier(){
+        repo = ctx.getBean(cashierRepository.class);
        
-        hardware hware = new hardware.Builder("Itmhammer75")
-                .descrip("claw hammer")
-                .brand("stahl")
+        cashier cash = new cashier.Builder("jake", "2120", 2000.00)
                 .Build();
         
-        repo.save(hware);
-        id = hware.getId();
+        repo.save(cash);
+        id = cash.getId();
         
         Assert.assertNotNull(id);
                 
     }
     
-    @Test(dependsOnMethods = "createHardware")
-    public void readHardware(){
-        repo = ctx.getBean(hardwareRepository.class);
-        hardware hware = repo.findOne(id);
-        Assert.assertEquals(hware.getBrand(), "stahl");
+    @Test(dependsOnMethods = "createCashier")
+    public void readCashier(){
+        repo = ctx.getBean(cashierRepository.class);
+        cashier cash = repo.findOne(id);
+        Assert.assertEquals(cash.getEmpNum(), "2120");
     }
     
-    @Test(dependsOnMethods = "createHardware")
-    private void updateHardware(){
-        repo = ctx.getBean(hardwareRepository.class);
+    @Test(dependsOnMethods = "createCashier")
+    private void updateCashier(){
+        repo = ctx.getBean(cashierRepository.class);
         
-        hardware hware = repo.findOne(id);
-        hardware hardUpdate = new hardware.Builder(hware.getBarcode())
-                .brand("PPC")
+        cashier cash = repo.findOne(id);
+        cashier cashUpdate = new cashier.Builder(cash.getName(), cash.getEmpNum(), cash.returnSalary())
+                .setName("bob")
                 .Build();
         
-        repo.save(hardUpdate);
+        repo.save(cashUpdate);
     }
     
-    @Test(dependsOnMethods = "readHardware")
-    private void deleteHardware(){
-        repo = ctx.getBean(hardwareRepository.class);
+    @Test(dependsOnMethods = "readCashier")
+    private void deleteCashier(){
+        repo = ctx.getBean(cashierRepository.class);
         repo.delete(id);
-        hardware ware = repo.findOne(id);
-        Assert.assertNull(ware);
+        cashier cash = repo.findOne(id);
+        Assert.assertNull(cash);
         
     }
 

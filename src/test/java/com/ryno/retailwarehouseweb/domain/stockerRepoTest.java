@@ -8,6 +8,7 @@ package com.ryno.retailwarehouseweb.domain;
 
 import com.ryno.retailwarehouseweb.app.config.ConnectionConfig;
 import com.ryno.retailwarehouseweb.repository.hardwareRepository;
+import com.ryno.retailwarehouseweb.repository.stockerRepository;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.testng.Assert;
@@ -19,58 +20,60 @@ import org.testng.annotations.Test;
 
 /**
  *
- * @author Ryno
+ * @author ryno
  */
-public class hardwareRepositoryTest {
-    
+public class stockerRepoTest {
     private static ApplicationContext ctx;
     private static Long id;
-    private static hardwareRepository repo;
-    
-    public hardwareRepositoryTest() {
+    private static stockerRepository repo;
+    public stockerRepoTest() {
     }
-    
-        @Test
-        public static void createHardware(){
-        repo = ctx.getBean(hardwareRepository.class);
+
+    // TODO add test methods here.
+    // The methods must be annotated with annotation @Test. For example:
+    //
+    // @Test
+    // public void hello() {}
+
+    @Test
+        public static void createStocker(){
+        repo = ctx.getBean(stockerRepository.class);
        
-        hardware hware = new hardware.Builder("Itmhammer75")
-                .descrip("claw hammer")
-                .brand("stahl")
+        Stocker stocker = new Stocker.Builder("dan", "789", 1500.00)
                 .Build();
         
-        repo.save(hware);
-        id = hware.getId();
+        repo.save(stocker);
+        id = stocker.getId();
         
         Assert.assertNotNull(id);
                 
     }
     
-    @Test(dependsOnMethods = "createHardware")
-    public void readHardware(){
-        repo = ctx.getBean(hardwareRepository.class);
-        hardware hware = repo.findOne(id);
-        Assert.assertEquals(hware.getBrand(), "stahl");
+    @Test(dependsOnMethods = "createStocker")
+    public void readStocker(){
+        repo = ctx.getBean(stockerRepository.class);
+        Stocker stocker = repo.findOne(id);
+        Assert.assertEquals(stocker.getEmpNum(), "789");
     }
     
-    @Test(dependsOnMethods = "createHardware")
-    private void updateHardware(){
-        repo = ctx.getBean(hardwareRepository.class);
+    @Test(dependsOnMethods = "createStocker")
+    private void updateStocker(){
+        repo = ctx.getBean(stockerRepository.class);
         
-        hardware hware = repo.findOne(id);
-        hardware hardUpdate = new hardware.Builder(hware.getBarcode())
-                .brand("PPC")
+        Stocker stocker = repo.findOne(id);
+        Stocker stockerUpdate = new Stocker.Builder(stocker.getName(), stocker.getEmpNum(), stocker.returnSalary())
+                .setSalary(2001.00)
                 .Build();
         
-        repo.save(hardUpdate);
+        repo.save(stockerUpdate);
     }
     
-    @Test(dependsOnMethods = "readHardware")
-    private void deleteHardware(){
-        repo = ctx.getBean(hardwareRepository.class);
+    @Test(dependsOnMethods = "readStocker")
+    private void deleteStocker(){
+        repo = ctx.getBean(stockerRepository.class);
         repo.delete(id);
-        hardware ware = repo.findOne(id);
-        Assert.assertNull(ware);
+        Stocker stocker = repo.findOne(id);
+        Assert.assertNull(stocker);
         
     }
 

@@ -34,16 +34,30 @@ public class Manager implements Serializable{
         return employeeNum;
     }
     
-    private Manager(Builder build){
-        name=build.name;
-        salary=build.salary;
-        employeeNum=build.employeeNum;
+    public Long getId(){
+        return id;
     }
     
+    private Manager(){};
+    
+    private Manager(Builder build){
+        this.name=build.name;
+        this.salary=build.salary;
+        this.employeeNum=build.employeeNum;
+        this.id=build.id;
+    }
+     private Manager(Manager build){
+        this.name=build.name;
+        this.salary=build.salary;
+        this.employeeNum=build.employeeNum;
+        this.id=build.id;
+    }
+     
     public static class Builder{
         private String name;
         private double salary;
         private String employeeNum;
+        private Long id;
         
         public Builder(String name, String empN, double sal){
             this.name=name;
@@ -56,8 +70,45 @@ public class Manager implements Serializable{
             this.name=n;
             return this;
         }
+        
+        public Builder Manager(Manager build){
+        this.name=build.name;
+        this.salary=build.salary;
+        this.employeeNum=build.employeeNum;
+        this.id=build.id;
+        return this;
+        }
+        
         public Manager Build(){
             return new Manager(this);
         }
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 47 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Manager other = (Manager) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Manager{" + "id=" + id + '}';
+    }
+    
 }

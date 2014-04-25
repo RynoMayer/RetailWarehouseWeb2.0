@@ -7,7 +7,7 @@
 package com.ryno.retailwarehouseweb.domain;
 
 import com.ryno.retailwarehouseweb.app.config.ConnectionConfig;
-import com.ryno.retailwarehouseweb.repository.hardwareRepository;
+import com.ryno.retailwarehouseweb.repository.managerRepository;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.testng.Assert;
@@ -19,58 +19,59 @@ import org.testng.annotations.Test;
 
 /**
  *
- * @author Ryno
+ * @author ryno
  */
-public class hardwareRepositoryTest {
-    
+public class managerRepoTest {
     private static ApplicationContext ctx;
     private static Long id;
-    private static hardwareRepository repo;
-    
-    public hardwareRepositoryTest() {
+    private static managerRepository repo;
+    public managerRepoTest() {
     }
-    
-        @Test
-        public static void createHardware(){
-        repo = ctx.getBean(hardwareRepository.class);
+
+    // TODO add test methods here.
+    // The methods must be annotated with annotation @Test. For example:
+    //
+    // @Test
+    // public void hello() {}
+@Test
+        public static void createManager(){
+        repo = ctx.getBean(managerRepository.class);
        
-        hardware hware = new hardware.Builder("Itmhammer75")
-                .descrip("claw hammer")
-                .brand("stahl")
+        Manager man = new Manager.Builder("ryno", "007", 50000.00)
                 .Build();
         
-        repo.save(hware);
-        id = hware.getId();
+        repo.save(man);
+        id = man.getId();
         
         Assert.assertNotNull(id);
                 
     }
     
-    @Test(dependsOnMethods = "createHardware")
-    public void readHardware(){
-        repo = ctx.getBean(hardwareRepository.class);
-        hardware hware = repo.findOne(id);
-        Assert.assertEquals(hware.getBrand(), "stahl");
+    @Test(dependsOnMethods = "createManager")
+    public void readManager(){
+        repo = ctx.getBean(managerRepository.class);
+        Manager man = repo.findOne(id);
+        Assert.assertEquals(man.getName(), "ryno");
     }
     
-    @Test(dependsOnMethods = "createHardware")
-    private void updateHardware(){
-        repo = ctx.getBean(hardwareRepository.class);
+    @Test(dependsOnMethods = "createManager")
+    private void updateManager(){
+        repo = ctx.getBean(managerRepository.class);
         
-        hardware hware = repo.findOne(id);
-        hardware hardUpdate = new hardware.Builder(hware.getBarcode())
-                .brand("PPC")
+        Manager man = repo.findOne(id);
+        Manager manUpdate = new Manager.Builder(man.getName(),man.getEmpNum(), man.returnSalary())
+                .setName("john")
                 .Build();
         
-        repo.save(hardUpdate);
+        repo.save(manUpdate);
     }
     
-    @Test(dependsOnMethods = "readHardware")
-    private void deleteHardware(){
-        repo = ctx.getBean(hardwareRepository.class);
+    @Test(dependsOnMethods = "readManager")
+    private void deleteManager(){
+        repo = ctx.getBean(managerRepository.class);
         repo.delete(id);
-        hardware ware = repo.findOne(id);
-        Assert.assertNull(ware);
+        Manager man = repo.findOne(id);
+        Assert.assertNull(man);
         
     }
 
