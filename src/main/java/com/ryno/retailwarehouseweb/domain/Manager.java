@@ -38,7 +38,7 @@ public class Manager implements Serializable{
         return id;
     }
     
-    private Manager(){};
+     private Manager(){};
     
     private Manager(Builder build){
         this.name=build.name;

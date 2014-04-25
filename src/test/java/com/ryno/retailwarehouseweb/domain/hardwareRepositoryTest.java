@@ -6,8 +6,9 @@
 
 package com.ryno.retailwarehouseweb.domain;
 
-import com.ryno.retailwarehouseweb.app.config.ConnectionConfig;
+
 import com.ryno.retailwarehouseweb.repository.hardwareRepository;
+import com.ryno.retailwarehouseweb.app.config.ConnectionConfig;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.testng.Assert;
