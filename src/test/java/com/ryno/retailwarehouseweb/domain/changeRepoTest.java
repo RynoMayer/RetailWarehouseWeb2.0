@@ -35,7 +35,7 @@ public class changeRepoTest {
     // public void hello() {}
     
     @Test
-        public static void creatChange(){
+        public static void createChange(){
         repo = ctx.getBean(changeRepo.class);
        
         change change2 = new change.Builder(23.05)

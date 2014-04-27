@@ -35,7 +35,7 @@ public class totalRepoTest {
     // public void hello() {}
 
      @Test
-        public static void creatTotal(){
+        public static void createTotal(){
         repo = ctx.getBean(totalRepo.class);
        
         total total2 = new total.Builder(660.50)

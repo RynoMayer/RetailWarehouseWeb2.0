@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
  *
  * @author ryno
  */
+@Repository
 public interface itemsRepository extends JpaRepository<items, Long>{
     
 }

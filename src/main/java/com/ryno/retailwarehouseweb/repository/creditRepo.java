@@ -7,10 +7,12 @@
 package com.ryno.retailwarehouseweb.repository;
 import com.ryno.retailwarehouseweb.domain.credit;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 /**
  *
  * @author ryno
  */
+@Repository
 public interface creditRepo extends JpaRepository<credit, Long>{
     
 }
