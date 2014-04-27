@@ -7,6 +7,7 @@
 package com.ryno.retailwarehouseweb.domain;
 
 import com.ryno.retailwarehouseweb.app.config.ConnectionConfig;
+import com.ryno.retailwarehouseweb.repository.coinsRepository;
 import com.ryno.retailwarehouseweb.repository.managerRepository;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -21,11 +22,11 @@ import org.testng.annotations.Test;
  *
  * @author ryno
  */
-public class managerRepoTest {
+public class coinsRepoTest {
     private static ApplicationContext ctx;
     private static Long id;
-    private static managerRepository repo;
-    public managerRepoTest() {
+    private static coinsRepository repo;
+    public coinsRepoTest() {
     }
 
     // TODO add test methods here.
@@ -33,45 +34,46 @@ public class managerRepoTest {
     //
     // @Test
     // public void hello() {}
-        @Test
-        public static void createManager(){
-        repo = ctx.getBean(managerRepository.class);
+
+    @Test
+        public static void createCoins(){
+        repo = ctx.getBean(coinsRepository.class);
        
-        Manager man = new Manager.Builder("ryno", "007", 50000.00)
-                .Build();
+        Coins coin = new Coins.Builder("R",10)
+                .build();
         
-        repo.save(man);
-        id = man.getId();
+        repo.save(coin);
+        id = coin.getId();
         
         Assert.assertNotNull(id);
                 
     }
     
-    @Test(dependsOnMethods = "createManager")
-    public void readManager(){
-        repo = ctx.getBean(managerRepository.class);
-        Manager man = repo.findOne(id);
-        Assert.assertEquals(man.getName(), "ryno");
+    @Test(dependsOnMethods = "createCoins")
+    public void readCoins(){
+        repo = ctx.getBean(coinsRepository.class);
+        Coins coin = repo.findOne(id);
+        Assert.assertEquals(coin.getAbbv(), "R");
     }
     
-    @Test(dependsOnMethods = "createManager")
-    private void updateManager(){
-        repo = ctx.getBean(managerRepository.class);
+    @Test(dependsOnMethods = "createCoins")
+    private void updateCoins(){
+        repo = ctx.getBean(coinsRepository.class);
         
-        Manager man = repo.findOne(id);
-        Manager manUpdate = new Manager.Builder(man.getName(),man.getEmpNum(), man.returnSalary())
-                .setName("john")
-                .Build();
+        Coins coin = repo.findOne(id);
+        Coins coinUpdate = new Coins.Builder(coin.getAbbv(),coin.getValue())
+                .setAbbr("$")
+                .build();
         
-        repo.save(manUpdate);
+        repo.save(coinUpdate);
     }
     
-    @Test(dependsOnMethods = "readManager")
-    private void deleteManager(){
-        repo = ctx.getBean(managerRepository.class);
+    @Test(dependsOnMethods = "readCoins")
+    private void deleteCoins(){
+        repo = ctx.getBean(coinsRepository.class);
         repo.delete(id);
-        Manager man = repo.findOne(id);
-        Assert.assertNull(man);
+        Coins coin = repo.findOne(id);
+        Assert.assertNull(coin);
         
     }
 

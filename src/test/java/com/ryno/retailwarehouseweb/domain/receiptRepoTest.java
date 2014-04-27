@@ -21,11 +21,11 @@ import org.testng.annotations.Test;
  *
  * @author ryno
  */
-public class managerRepoTest {
+public class receiptRepoTest {
     private static ApplicationContext ctx;
     private static Long id;
     private static managerRepository repo;
-    public managerRepoTest() {
+    public receiptRepoTest() {
     }
 
     // TODO add test methods here.
@@ -33,7 +33,8 @@ public class managerRepoTest {
     //
     // @Test
     // public void hello() {}
-        @Test
+
+    @Test
         public static void createManager(){
         repo = ctx.getBean(managerRepository.class);
        

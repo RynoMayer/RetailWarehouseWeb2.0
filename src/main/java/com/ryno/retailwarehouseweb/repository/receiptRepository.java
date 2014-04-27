@@ -5,12 +5,12 @@
  */
 
 package com.ryno.retailwarehouseweb.repository;
-import com.ryno.retailwarehouseweb.domain.orders;
+import com.ryno.retailwarehouseweb.domain.receipt;
 import org.springframework.data.jpa.repository.JpaRepository;
 /**
  *
  * @author ryno
  */
-public interface orderRepository extends JpaRepository<orders, Long>{
+public interface receiptRepository extends JpaRepository<receipt, Long>{
     
 }

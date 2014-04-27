@@ -8,6 +8,7 @@ package com.ryno.retailwarehouseweb.domain;
 
 import com.ryno.retailwarehouseweb.app.config.ConnectionConfig;
 import com.ryno.retailwarehouseweb.repository.managerRepository;
+import com.ryno.retailwarehouseweb.repository.notesRepository;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.testng.Assert;
@@ -21,11 +22,11 @@ import org.testng.annotations.Test;
  *
  * @author ryno
  */
-public class managerRepoTest {
+public class notesRepoTest {
     private static ApplicationContext ctx;
     private static Long id;
-    private static managerRepository repo;
-    public managerRepoTest() {
+    private static notesRepository repo;
+    public notesRepoTest() {
     }
 
     // TODO add test methods here.
@@ -33,15 +34,16 @@ public class managerRepoTest {
     //
     // @Test
     // public void hello() {}
-        @Test
+
+    @Test
         public static void createManager(){
-        repo = ctx.getBean(managerRepository.class);
+        repo = ctx.getBean(notesRepository.class);
        
-        Manager man = new Manager.Builder("ryno", "007", 50000.00)
-                .Build();
+        notes note = new notes.Builder("$", 200)
+                .build();
         
-        repo.save(man);
-        id = man.getId();
+        repo.save(note);
+        id = note.getId();
         
         Assert.assertNotNull(id);
                 
@@ -49,29 +51,29 @@ public class managerRepoTest {
     
     @Test(dependsOnMethods = "createManager")
     public void readManager(){
-        repo = ctx.getBean(managerRepository.class);
-        Manager man = repo.findOne(id);
-        Assert.assertEquals(man.getName(), "ryno");
+        repo = ctx.getBean(notesRepository.class);
+        notes note = repo.findOne(id);
+        Assert.assertEquals(note.getAbbv(), "$");
     }
     
     @Test(dependsOnMethods = "createManager")
     private void updateManager(){
-        repo = ctx.getBean(managerRepository.class);
+        repo = ctx.getBean(notesRepository.class);
         
-        Manager man = repo.findOne(id);
-        Manager manUpdate = new Manager.Builder(man.getName(),man.getEmpNum(), man.returnSalary())
-                .setName("john")
-                .Build();
+        notes note = repo.findOne(id);
+        notes noteUpdate = new notes.Builder(note.getAbbv(),note.getValue())
+                .setAbbr("%")
+                .build();
         
-        repo.save(manUpdate);
+        repo.save(noteUpdate);
     }
     
     @Test(dependsOnMethods = "readManager")
     private void deleteManager(){
-        repo = ctx.getBean(managerRepository.class);
+        repo = ctx.getBean(notesRepository.class);
         repo.delete(id);
-        Manager man = repo.findOne(id);
-        Assert.assertNull(man);
+        notes note = repo.findOne(id);
+        Assert.assertNull(note);
         
     }
 
