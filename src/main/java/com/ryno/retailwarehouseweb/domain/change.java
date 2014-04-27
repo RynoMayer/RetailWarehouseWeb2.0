@@ -14,75 +14,59 @@ import javax.persistence.Id;
  * @author ryno
  */
 @Entity
-public class notes implements Serializable{
+public class change implements Serializable{
     private static final Long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id; 
-    private int v_values;
-    private String abbv;
-    
-    public int getValue(){
-        return v_values;
+    private Long id;
+    //VARIABLES
+    private double amount;
+    //GET+SET   
+    public double getAmount(){
+        return amount;
     }
-    public String getAbbv(){
-        return abbv;
-    }
-    
     public Long getId(){
         return id;
     }
-    
-    private notes(){};
-    
-    private notes(Builder build){
-        this.abbv=build.abbv;
-        this.v_values=build.v_values;
+    private change(){};
+    private change(Builder build){
+        this.amount=build.amount; 
         this.id=build.id;
     }
-    
-    private notes(notes item){
-        this.abbv=item.abbv;
-        this.v_values=item.v_values;
+    private change(change item){
+        this.amount=item.amount; 
         this.id=item.id;
-    
     }
     
     public static class Builder{
-        private int v_values;
-        private String abbv;
-        private Long id; 
+        private double amount;
+        private Long id;
         
-        public Builder(String abbrev, int val){
-            this.v_values=val;
-            this.abbv=abbrev;
+        public Builder(double amt){
+            this.amount=amt;
         }
         
-        public Builder setAbbr(String abb){
-            this.abbv=abb;
+        public Builder setAmt(double amt){
+            this.amount=amt;
             return this;
         }
+
         
-        public Builder notes(notes item){
-        this.abbv=item.abbv;
-        this.v_values=item.v_values;
-        this.id=item.id;
+        public Builder change(change build){
+        this.amount=build.amount;
+        this.id=build.id;
         return this;
     }
         
-        public notes build(){
-            return new notes(this);
+        public change build(){
+            return new change(this);
         }
-       /* public Builder addNotes(notes b){
-            noteList.add( b);
-            return this;
-        }*/
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 97 * hash + Objects.hashCode(this.id);
+        hash = 29 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -94,7 +78,7 @@ public class notes implements Serializable{
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final notes other = (notes) obj;
+        final change other = (change) obj;
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
@@ -103,7 +87,7 @@ public class notes implements Serializable{
 
     @Override
     public String toString() {
-        return "notes{" + "id=" + id + '}';
+        return "change{" + "id=" + id + '}';
     }
     
 }

@@ -5,12 +5,12 @@
  */
 
 package com.ryno.retailwarehouseweb.repository;
-import com.ryno.retailwarehouseweb.domain.Appliance;
+import com.ryno.retailwarehouseweb.domain.change;
 import org.springframework.data.jpa.repository.JpaRepository;
 /**
  *
  * @author ryno
  */
-public interface applianceRepository extends JpaRepository<Appliance, Long>{
+public interface changeRepo extends JpaRepository<change, Long>{
     
 }

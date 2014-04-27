@@ -46,11 +46,11 @@ public class Manager implements Serializable{
         this.employeeNum=build.employeeNum;
         this.id=build.id;
     }
-     private Manager(Manager build){
-        this.name=build.name;
-        this.salary=build.salary;
-        this.employeeNum=build.employeeNum;
-        this.id=build.id;
+     private Manager(Manager item){
+        this.name=item.name;
+        this.salary=item.salary;
+        this.employeeNum=item.employeeNum;
+        this.id=item.id;
     }
      
     public static class Builder{
